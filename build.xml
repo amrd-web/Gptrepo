@@ -1,0 +1,26 @@
+<project name="MyWebApp" default="war">
+
+    <property name="src.dir" value="src"/>
+    <property name="web.dir" value="web"/>
+    <property name="build.dir" value="build"/>
+    <property name="dist.dir" value="dist"/>
+
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+        <delete dir="${dist.dir}"/>
+    </target>
+
+    <target name="compile">
+        <mkdir dir="${build.dir}/WEB-INF/classes"/>
+        <javac srcdir="${src.dir}" destdir="${build.dir}/WEB-INF/classes" includeantruntime="false"/>
+    </target>
+
+    <target name="war" depends="compile">
+        <mkdir dir="${dist.dir}"/>
+        <copy todir="${build.dir}">
+            <fileset dir="${web}"/>
+        </copy>
+        <war destfile="${dist.dir}/MyWebApp.war" webxml="${web.dir}/WEB-INF/web.xml" basedir="${build.dir}"/>
+    </target>
+
+</project>
